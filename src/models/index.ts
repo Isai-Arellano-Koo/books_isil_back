@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { Sequelize } from 'sequelize';
-import { sequelize } from '../src/config/db';
+import { sequelize } from '../config/db';
 
 // Tipado
 type ModelDefiner = (sequelize: Sequelize) => any;
