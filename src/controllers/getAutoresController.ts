@@ -7,7 +7,7 @@ const getAutoresController = async () => {
     const autores = await Autor.findAll();
     return autores;
   } catch (error) {
-    console.error("❌ Error en getAutoresController:", error);
+    console.error(" Error en getAutoresController:", error);
     throw error;
   }
 };

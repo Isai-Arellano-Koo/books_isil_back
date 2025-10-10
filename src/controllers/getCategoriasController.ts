@@ -7,7 +7,7 @@ const getCategoriasController = async () => {
     const categorias = await Categoria.findAll();
     return categorias;
   } catch (error) {
-    console.error("❌ Error en getCategoriasController:", error);
+    console.error(" Error en getCategoriasController:", error);
     throw error;
   }
 };

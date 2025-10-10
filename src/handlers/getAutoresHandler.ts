@@ -5,11 +5,11 @@ const getAutoresHandler = async (req: Request, res: Response) => {
   try {
     const response = await getAutoresController();
     res.status(200).json({
-      message: "✅ Autores obtenidos correctamente",
+      message: "Autores obtenidos correctamente",
       data: response,
     });
   } catch (error: any) {
-    console.error("❌ Error al obtener autores:", error);
+    console.error("Error al obtener autores:", error);
     res.status(500).json({
       error: "Error al obtener los autores",
     });

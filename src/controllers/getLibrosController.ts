@@ -14,7 +14,7 @@ const getLibrosController = async () => {
 
     return libros;
   } catch (error) {
-    console.error("❌ Error en getLibrosController:", error);
+    console.error(" Error en getLibrosController:", error);
     throw error;
   }
 };

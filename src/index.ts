@@ -4,10 +4,12 @@ import { conn } from './config/db';
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+// AlwaysData proporciona las variables PORT e IP automáticamente.
+const PORT = Number(process.env.PORT) || 8100;
+const HOST = process.env.IP || '::'; // 👈 IPv6 requerido por AlwaysData
 
-conn.sync({alter: true}).then(() => {
-  app.listen(PORT, () => {
-  console.log(`🚀 Server running on ${PORT}`);
+conn.sync({ alter: false }).then(() => {
+  app.listen(PORT, HOST, () => {
+    console.log(`🚀 Server running at http://[${HOST}]:${PORT}`);
+  });
 });
-})
