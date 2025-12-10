@@ -3,17 +3,16 @@ import getLibroForIdController from "../controllers/getLibroForIdController";
 
 const getLibroForIdHandler = async (req: Request, res: Response) => {
   try {
-     const { id } = req.query;
-     console.log("Query recibida:", req.query);
+    const id = req.query.id as string;
+    console.log("Query recibida:", req.query);
 
-
-    // Validación: debe existir y ser un número válido
-    if (!id || isNaN(Number(id))) {
+    // Validación: debe existir
+    if (!id) {
       return res.status(400).json({
-        message: "Debe proporcionar un ID numérico válido en la query (?id=1)",
+        message: "Debe proporcionar un ID válido en la query (?id=1)",
       });
     }
-    const libro = await getLibroForIdController(Number(id));
+    const libro = await getLibroForIdController(id);
 
     if (!libro) {
       return res.status(404).json({
@@ -28,7 +27,7 @@ const getLibroForIdHandler = async (req: Request, res: Response) => {
   } catch (error: any) {
     res.status(500).json({
       error: "Error al obtener el libroo",
-      errorr: error.message
+      errorr: error.message,
     });
   }
 };

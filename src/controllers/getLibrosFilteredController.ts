@@ -1,4 +1,5 @@
 import db from "../models";
+import { Op } from "sequelize";
 
 const { Libro, Autor, Categoria } = db;
 
@@ -19,31 +20,32 @@ const getLibrosFilteredController = async ({
 }: FilterOptions) => {
   const offset = (page - 1) * items;
 
-  // Construimos el filtro de categoría
-  const whereClause: any = {};
-  if (category && category !== "all") {
-    whereClause["$categoria.nombre_categoria$"] = category;
-  }
+  const whereClause =
+    category && category !== "all"
+      ? { "$categoria.nombre_categoria$": { [Op.iLike]:  `%${category}%` } }
+      : undefined;
 
-  const libros = await Libro.findAll({
-    where: whereClause,
+  const libros = await Libro.findAndCountAll({
     include: [
       { model: Autor, as: "autor" },
-      { model: Categoria, as: "categoria" },
+      { model: Categoria, as: "categoria" }
     ],
-    order: [[campo, order]], // Ordena por título
+    where: whereClause,
+    order: [[campo, order]],
     limit: items,
     offset,
   });
 
-  const {count: total_libros} = await Libro.findAndCountAll()
+  const total_libros = libros.count;
+  const total_pages = Math.ceil(Number(total_libros) / items);
 
   return {
-    message: "Libros obtenidos  correctamente",
+    message: "Libros obtenidos correctamente",
     total_libros,
+    total_pages,
     page,
     items,
-    data: libros,
+    data: libros.rows,
   };
 };
 

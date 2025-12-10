@@ -8,7 +8,7 @@ dotenv.config();
 const PORT = Number(process.env.PORT) || 8100;
 const HOST = process.env.IP || '::'; // 👈 IPv6 requerido por AlwaysData
 
-conn.sync({ alter: false }).then(() => {
+conn.sync({ alter: true }).then(() => {
   app.listen(PORT, HOST, () => {
     console.log(`🚀 Server running at http://[${HOST}]:${PORT}`);
   });

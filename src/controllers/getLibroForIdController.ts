@@ -2,7 +2,7 @@ import db from "../models";
 
 const { Libro, Autor, Categoria } = db;
 
-const getLibroForIdController = async (id: number) => {
+const getLibroForIdController = async (id: string) => {
     try {
         const libro = await Libro.findByPk(id, {
             include: [

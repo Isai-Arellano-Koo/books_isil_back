@@ -32,9 +32,9 @@ export default (sequelize: Sequelize) => {
   Libro.init(
     {
       id_libro: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.UUID,
         primaryKey: true,
-        autoIncrement: true
+        defaultValue: DataTypes.UUIDV4,
       },
       titulo: {
         type: DataTypes.STRING(100),
